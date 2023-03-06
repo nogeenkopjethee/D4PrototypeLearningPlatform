@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace D4PrototypeLearningPlatform.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
