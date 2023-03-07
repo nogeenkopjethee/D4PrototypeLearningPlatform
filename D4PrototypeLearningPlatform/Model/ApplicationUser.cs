@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace asrvagon.Model
+namespace D4PrototypeLearningPlatform.Model
 {
     public class ApplicationUser : IdentityUser
     {

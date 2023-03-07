@@ -1,4 +1,5 @@
 using D4PrototypeLearningPlatform.Data;
+using D4PrototypeLearningPlatform.Model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
