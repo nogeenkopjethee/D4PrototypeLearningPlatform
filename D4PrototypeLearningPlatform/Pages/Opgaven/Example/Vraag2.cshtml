@@ -1,0 +1,56 @@
+﻿@page
+@model D4PrototypeLearningPlatform.Pages.Opgaven.Example.Vraag2Model
+@{
+}
+
+<div id="editor"></div>
+
+<button type="button" class="btn btn-primary" onclick="document.querySelector('#hidden-success-alert').classList.remove('d-none')">Check code</button>
+
+<div class="alert alert-success d-none" role="alert" id="hidden-success-alert">
+    The code is correct!!!! 😊
+    <button type="button" class="btn btn-primary" onclick="document.querySelector('#hidden-success-alert').classList.remove('d-none')">Check code</button>
+</div>
+
+<script>
+var el = document.getElementById('editor');
+
+// window.editor is accessible. 
+var editor = null;
+var init = function () {
+
+    if (el) {
+        console.log("Loading editor...");
+        el.style.height = '400px';
+        require(['vs/editor/editor.main'], function () {
+
+            editor = monaco.editor.create(el, {
+                theme: 'vs-dark',
+                model: monaco.editor.createModel(`"use strict"
+/**
+ * ██    ██ ██████   █████   █████   ██████  ██████  
+ * ██    ██ ██   ██ ██   ██ ██   ██ ██            ██ 
+ * ██    ██ ██████  ███████ ███████ ██   ███  █████  
+ *  ██  ██  ██   ██ ██   ██ ██   ██ ██    ██ ██      
+ *   ████   ██   ██ ██   ██ ██   ██  ██████  ███████
+ */
+const test = "Hello World";
+
+
+
+
+
+
+`, "javascript")
+            });
+
+            editor.layout();
+        });
+    }
+
+    // no point in keeping this around.
+    window.removeEventListener("load", init);
+};
+
+window.addEventListener("load", init);
+</script>

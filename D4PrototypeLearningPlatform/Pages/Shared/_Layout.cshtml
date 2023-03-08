@@ -23,9 +23,6 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/SpikeEditor">Editor</a>
                         </li>
                         <li class="nav-item">
@@ -39,6 +36,13 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Opgaven/Index">Opgaven</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Example</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="nav-link text-dark" asp-area="" asp-page="/Opgaven/Example/Vraag1">Vraag1</a></li>
+                                <li><a class="nav-link text-dark" asp-area="" asp-page="/Opgaven/Example/Vraag2">Vraag2</a></li>
+                            </ul>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
