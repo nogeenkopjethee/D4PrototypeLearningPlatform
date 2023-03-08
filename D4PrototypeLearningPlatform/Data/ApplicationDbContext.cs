@@ -10,5 +10,8 @@ namespace D4PrototypeLearningPlatform.Data
             : base(options)
         {
         }
+
+
+        public DbSet<Module>? Module { get; set; }
     }
 }
