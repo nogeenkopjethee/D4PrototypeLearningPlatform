@@ -13,7 +13,12 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>();
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AuthorizeFolder("/Modules");
+    //options.Conventions.AllowAnonymousToPage("/Private/PublicPage");
+    //options.Conventions.AllowAnonymousToFolder("/Private/PublicPages");
+});
 
 var app = builder.Build();
 
