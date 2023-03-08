@@ -1,6 +1,8 @@
 ﻿using D4PrototypeLearningPlatform.Model;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 namespace D4PrototypeLearningPlatform.Data
 {
@@ -10,8 +12,13 @@ namespace D4PrototypeLearningPlatform.Data
             : base(options)
         {
         }
-
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            //builder.Entity<project>().HasMany(i => i.feature).WithMany(); // We could use this if the relation is not working like we would like.
+            base.OnModelCreating(builder);
+        }
 
         public DbSet<Module>? Module { get; set; }
+        public DbSet<Cursus>? Cursus { get; set; }
     }
 }

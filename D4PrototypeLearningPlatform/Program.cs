@@ -16,6 +16,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.AuthorizeFolder("/Modules");
+    options.Conventions.AuthorizeFolder("/Cursussen");
     //options.Conventions.AllowAnonymousToPage("/Private/PublicPage");
     //options.Conventions.AllowAnonymousToFolder("/Private/PublicPages");
 });
