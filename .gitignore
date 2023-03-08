@@ -361,3 +361,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/D4PrototypeLearningPlatform/wwwroot/lib/monaco-editor
