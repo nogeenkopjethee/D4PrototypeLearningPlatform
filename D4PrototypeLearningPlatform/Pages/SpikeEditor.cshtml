@@ -1,21 +1,14 @@
 ﻿@page
 @model SpikeEditorModel
 @{
-    ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = "Code editor";
 }
 
-<h3>Dit gaan we vervangen met CodeMirror 6 ofzo.</h3>
-<textarea class="w-100">
-Console.log("Hello World!");
+<h3>Editor.</h3>
+<div id="editor"></div>
 
+<button type="button" class="btn btn-primary" onclick="document.querySelector('#hidden-success-alert').classList.remove('d-none')">Check code</button>
 
-
-
-
-
-
-
-
-
-
-</textarea>
+<div class="alert alert-success d-none" role="alert" id="hidden-success-alert">
+    The code is correct!!!! 😊
+</div>
