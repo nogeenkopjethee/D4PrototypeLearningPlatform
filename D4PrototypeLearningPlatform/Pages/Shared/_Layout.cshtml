@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using D4PrototypeLearningPlatform.Model;
+@inject SignInManager<ApplicationUser> SignInManager
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -25,6 +27,9 @@
       @*                  <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/SpikeEditor">Editor</a>
                         </li>*@
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/UserDashboard">User Dashboard</a>
                         </li>
@@ -45,6 +50,7 @@
                                 <li><a class="nav-link text-dark" asp-area="" asp-page="/Opgaven/Example/Vraag3">Vraag3</a></li>
                             </ul>
                         </li>
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
