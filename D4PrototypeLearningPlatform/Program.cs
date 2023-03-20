@@ -1,5 +1,6 @@
 using D4PrototypeLearningPlatform.Data;
 using D4PrototypeLearningPlatform.Model;
+using D4PrototypeLearningPlatform.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
@@ -42,6 +43,10 @@ builder.Services.Configure<IdentityOptions>(options =>
     //"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
     options.User.RequireUniqueEmail = false;
 });
+
+
+builder.Services.AddSingleton<DockerService>(); // This could be removed if we don't use it!
+
 
 var app = builder.Build();
 
