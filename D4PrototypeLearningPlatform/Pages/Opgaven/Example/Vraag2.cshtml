@@ -3,14 +3,18 @@
 @{
 }
 
-<div id="editor"></div>
 <h1>Example 2: Find HCF using for Loop</h1>
-<button type="button" class="btn btn-primary" onclick="document.querySelector('#hidden-success-alert').classList.remove('d-none')">Check code</button>
+<div id="editor"></div>
+<button type="button" class="btn btn-primary" onclick="RunCode()">Check code</button>
 
 <div class="alert alert-success d-none" role="alert" id="hidden-success-alert">
     The code is correct!!!! 😊
-    <button type="button" class="btn btn-primary" onclick="document.querySelector('#hidden-success-alert').classList.remove('d-none')">Check code</button>
 </div>
+
+<div class="alert alert-danger d-none" role="alert" id="hidden-danger-alert">
+    Improve the code please!
+</div>
+
 
 <script>
 var el = document.getElementById('editor');
@@ -34,25 +38,13 @@ var init = function () {
  *  ██  ██  ██   ██ ██   ██ ██   ██ ██    ██ ██      
  *   ████   ██   ██ ██   ██ ██   ██  ██████  ███████
  */
-// https://www.programiz.com/javascript/examples/hcf
-// program to find the HCF or GCD of two integers
+// Implement code for the next function that adds 2 numbers and return the result!
 
-let hcf;
-// take input
-const number1 = prompt('Enter a first positive integer: ');
-const number2 = prompt('Enter a second positive integer: ');
 
-// looping from 1 to number1 and number2
-for (let i = 1; i <= number1 && i <= number2; i++) {
-
-    // check if is factor of both integers
-    if( number1 % i == 0 && number2 % i == 0) {
-        hcf = i;
-    }
+function Add(numberA, numberB) {
+    // place code here!
+    return 0;
 }
-
-// display the hcf
-console.log(\`HCF of $\{number1\} and $\{number2\} is $\{hcf\}.\`);
 
 
 
@@ -69,4 +61,31 @@ console.log(\`HCF of $\{number1\} and $\{number2\} is $\{hcf\}.\`);
 };
 
 window.addEventListener("load", init);
+
+    function RunCode() {
+        let TestRunner = `
+        let __test = false;
+
+    if (Add(4, 6) == 10)
+    {
+        if (Add(40, 6) == 46)
+        {
+            __test = true;
+        }            
+    }
+
+
+    if (__test)
+    {
+        document.querySelector('#hidden-success-alert').classList.remove('d-none');
+    } else {
+        document.querySelector('#hidden-danger-alert').classList.remove('d-none');
+    }
+        `;
+
+
+        eval(window.editor.getValue() + TestRunner);
+        //document.querySelector('#hidden-success-alert').classList.remove('d-none');
+    }
+
 </script>
