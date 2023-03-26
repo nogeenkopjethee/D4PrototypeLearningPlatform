@@ -32,6 +32,7 @@
 
                 editor = monaco.editor.create(el, {
                     theme: 'vs-dark',
+                        //https://stackoverflow.com/questions/4071602/asp-net-mvc-razor-render-without-encoding
                         model: monaco.editor.createModel(`@Html.Raw(Model.Opgave.InitialCode)`, `@Model.Opgave.Type.ToString().ToLower()`)
                 });
 
