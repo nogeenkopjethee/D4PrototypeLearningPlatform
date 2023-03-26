@@ -26,7 +26,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Opgave.Type" class="control-label"></label>
-                <select asp-for="Opgave.Type" class="form-control"></select>
+                <select asp-for="Opgave.Type" class="form-control" asp-items="Html.GetEnumSelectList<ProgrammingLanguage>()"></select>
                 <span asp-validation-for="Opgave.Type" class="text-danger"></span>
             </div>
             <div class="form-group">
