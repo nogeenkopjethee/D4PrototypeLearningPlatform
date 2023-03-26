@@ -1,0 +1,23 @@
+version: '3.4'
+
+services:
+  d4prototypelearningplatform:
+    image: d4prototypelearningplatform
+    build:
+      context: .
+      dockerfile: D4PrototypeLearningPlatform/Dockerfile
+    depends_on:
+      - db
+    ports:
+      - "6543:80"
+      - "6544:443"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: d4db
+    ports: 
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "notthepassword"
+      ACCEPT_EULA: "Y"
