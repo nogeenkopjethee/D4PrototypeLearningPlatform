@@ -4,11 +4,72 @@
     ViewData["Title"] = "Code editor";
 }
 
-<h3>Editor.</h3>
+<h1>@Model.Opgave.Name</h1>
+<p>@Model.Opgave.Description</p>
 <div id="editor"></div>
-
-<button type="button" class="btn btn-primary" onclick="document.querySelector('#hidden-success-alert').classList.remove('d-none')">Check code</button>
+<button type="button" class="btn btn-primary" onclick="RunCode()">Check code</button>
 
 <div class="alert alert-success d-none" role="alert" id="hidden-success-alert">
     The code is correct!!!! 😊
 </div>
+
+<div class="alert alert-danger d-none" role="alert" id="hidden-danger-alert">
+    Improve the code please!
+</div>
+
+@section Scripts {
+
+<script>
+    var el = document.getElementById('editor');
+    // window.editor is accessible.
+    var editor = null;
+    var init = function () {
+
+        if (el) {
+            console.log("Loading editor...");
+            el.style.height = '800px';
+            require(['vs/editor/editor.main'], function () {
+
+                editor = monaco.editor.create(el, {
+                    theme: 'vs-dark',
+                        model: monaco.editor.createModel(`@Html.Raw(Model.Opgave.InitialCode)`, `@Model.Opgave.Type.ToString().ToLower()`)
+                });
+
+                editor.layout();
+            });
+        }
+
+        // no point in keeping this around.
+        window.removeEventListener("load", init);
+    };
+
+    window.addEventListener("load", init);
+
+    function RunCode() {
+        let TestRunner = `
+            let __test = false;
+
+        if (Add(4, 6) == 10)
+        {
+            if (Add(40, 6) == 46)
+            {
+                __test = true;
+            }
+        }
+
+
+        if (__test)
+        {
+            document.querySelector('#hidden-success-alert').classList.remove('d-none');
+        } else {
+            document.querySelector('#hidden-danger-alert').classList.remove('d-none');
+        }
+            `;
+
+
+        eval(window.editor.getValue() + TestRunner); // STILL BAD CODE!
+        //document.querySelector('#hidden-success-alert').classList.remove('d-none');
+    }
+
+</script>
+}

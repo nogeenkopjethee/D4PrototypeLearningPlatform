@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using D4PrototypeLearningPlatform.Data;
 using Microsoft.EntityFrameworkCore;
 using D4PrototypeLearningPlatform.Model;
+using D4PrototypeLearningPlatform.Data.Migrations;
 
 namespace D4PrototypeLearningPlatform.Pages
 {
@@ -10,32 +11,51 @@ namespace D4PrototypeLearningPlatform.Pages
     {
         private readonly D4PrototypeLearningPlatform.Data.ApplicationDbContext _context;
 
-        public SpikeEditorModel(D4PrototypeLearningPlatform.Data.ApplicationDbContext context)
+
+        public Opgave? Opgave { get; set; }
+
+        public SpikeEditorModel(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public void OnGet( )
-        {
-        }
-
-        //public async Task<IActionResult> OnGetAsync(Guid? id)
+        //public void OnGet( )
         //{
-        //    if (id == null || _context.Module == null)
+        //    Opgave = new()
         //    {
-        //        return NotFound();
-        //    }
-
-        //    // var module = await _context.Module.FirstOrDefaultAsync(m => m.Id == id);
-        //    // if (module == null)
-        //    // {
-        //    //     return NotFound();
-        //    // }
-        //    // else 
-        //    // {
-        //    //     Module = module;
-        //    // }
-        //    return Page();
+        //        Id = Guid.Empty,
+        //        Description = "Fallback Description",
+        //        Name = "Example Name",
+        //        InitialCode = "const test = \"Hello World\";",
+        //        Type = ProgrammingLanguage.Javascript,
+        //    };
         //}
+
+        public async Task<IActionResult> OnGetAsync(Guid? id)
+        {
+            if (id == null || _context.Opgave == null)
+            {
+                Opgave = new()
+                {
+                    Id = Guid.Empty,
+                    Description = "Fallback Description",
+                    Name = "Example Name",
+                    InitialCode = """const test = "Hello World";""",
+                    Type = ProgrammingLanguage.Javascript,
+                };
+                return Page();
+            }
+
+            var opgave = await _context.Opgave.FirstOrDefaultAsync(m => m.Id == id);
+            if (opgave == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                Opgave = opgave;
+            }
+            return Page();
+        }
     }
 }
