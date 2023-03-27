@@ -48,28 +48,12 @@
 
     function RunCode() {
         let TestRunner = `
-            let __test = false;
-
-        if (Add(4, 6) == 10)
-        {
-            if (Add(40, 6) == 46)
-            {
-                __test = true;
-            }
-        }
-
-
-        if (__test)
-        {
-            document.querySelector('#hidden-success-alert').classList.remove('d-none');
-        } else {
-            document.querySelector('#hidden-danger-alert').classList.remove('d-none');
-        }
+        @Html.Raw(Model.Opgave.TestingCode)
             `;
 
 
-        //eval(window.editor.getValue() + TestRunner); // STILL BAD CODE!
-        eval(window.editor.getValue()); // STILL BAD CODE!
+        eval(window.editor.getValue() + TestRunner); // STILL BAD CODE!
+        //eval(window.editor.getValue()); // STILL BAD CODE!
         //document.querySelector('#hidden-success-alert').classList.remove('d-none');
     }
 

@@ -32,23 +32,155 @@ var init = function () {
             editor = monaco.editor.create(el, {
                 theme: 'vs-dark',
                 model: monaco.editor.createModel(`"use strict"
-/**
- * ██    ██ ██████   █████   █████   ██████  ██████  
- * ██    ██ ██   ██ ██   ██ ██   ██ ██            ██ 
- * ██    ██ ██████  ███████ ███████ ██   ███  █████  
- *  ██  ██  ██   ██ ██   ██ ██   ██ ██    ██ ██      
- *   ████   ██   ██ ██   ██ ██   ██  ██████  ███████
- */
-// Implement code for the next function that adds 2 numbers and return the result!
+
+// Where To
+// Code moet in de script tags!
+// \<script\>
+document.getElementById("demo").innerHTML = "My First JavaScript";
+// \<\/script>
+
+// Output
+// JavaScript can "display" data in different ways:
+
+// Writing into an HTML element, using innerHTML.
+// Writing into the HTML output using document.write().
+// Writing into an alert box, using window.alert().
+// Writing into the browser console, using console.log().
 
 
-function Add(numberA, numberB) {
-    // place code here!
-    return 0;
+// Statements, "Values, Operators, Expressions, Keywords, and Comments."
+let x, y, z;    // Statement 1
+x = 5;          // Statement 2
+y = 6;          // Statement 3
+z = x + y;      // Statement 4
+
+// Syntax?
+// How to create variables:
+var x;
+let y;
+
+// How to use variables:
+x = 5;
+y = 6;
+let z = x + y;
+
+
+// Comments?
+// x = 5; // this won't run!
+
+
+// Variables
+// Same as Syntax?
+const price1 = 5;
+const price2 = 6;
+let total = price1 + price2;
+
+// let, var, Const
+
+
+// Operators
+let a = 3;
+let operatorSum = (100 + 50) * a;
+
+
+// Arithmetic
+// Assignment
+let text = "Hello"; text += " World";
+let assignmentNumber = 10;
+assignmentNumber -= 5;
+// = += -= *= /= %= **=
+
+// Data Types
+// JavaScript has 8 Datatypes
+// 1. String
+// 2. Number
+// 3. Bigint
+// 4. Boolean
+// 5. Undefined
+// 6. Null
+// 7. Symbol
+// 8. Object
+
+
+// Functions
+// Function to compute the product of p1 and p2
+function myFunction(p1, p2) {
+  return p1 * p2;
+}
+
+function toCelsius(fahrenheit) {
+  return (5/9) * (fahrenheit-32);
 }
 
 
+// Objects
+const car = {type:"Fiat", model:"500", color:"white"};
 
+
+// Events
+
+
+// Strings
+let carName1 = "Volvo XC60";  // Double quotes
+let carName2 = 'Volvo XC60';  // Single quotes
+
+
+// String Templates
+let firstName = "John";
+let lastName = "Doe";
+
+let text = \`Welcome \${firstName}, \${lastName}!\`;
+
+
+// Numbers
+
+// Precision
+let prX = 999999999999999;   // x will be 999999999999999
+let prY = 9999999999999999;  // y will be 10000000000000000
+
+let prZ = 0.2 + 0.1; // is not 0.3
+
+let prA = "100";
+let prB = "10";
+let prC = x - y; // this will work
+let prD = x + y; // this will not
+
+// Arrays
+// Dates
+// Math
+// Random
+// Booleans
+// Comparisons
+// If Else
+// Switch
+// Loop For
+// Loop For In
+// Loop For Of
+// Loop While
+// Break
+// Iterables
+// Set?
+// Maps
+// TypeOf
+// Type Conversion
+// Bitwise
+// RegExp
+// Errors
+// Scope
+// Hoisting
+// Use Strict
+// This
+// Arrow Function
+// Classes
+// Modules
+// JSON
+// Debugging
+// Style Guide
+// Best Practices
+// Common Mistakes
+// Performance
+// Reserved Words
+// DOM
 
 `, "javascript")
             });

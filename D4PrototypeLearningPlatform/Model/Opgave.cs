@@ -11,6 +11,7 @@ public class Opgave
     public ProgrammingLanguage Type { get; set; } = ProgrammingLanguage.Markdown;
 
     public string InitialCode { get; set; } = "";
+    public string TestingCode { get; set; } = "";
 }
 
 public enum ProgrammingLanguage
