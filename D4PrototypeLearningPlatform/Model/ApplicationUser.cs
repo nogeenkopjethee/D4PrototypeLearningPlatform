@@ -4,5 +4,7 @@ namespace D4PrototypeLearningPlatform.Model
 {
     public class ApplicationUser : IdentityUser
     {
+        [PersonalData]
+        public JavascriptInfo JavascriptInfo { get; set; } = JavascriptInfo.None;
     }
 }
