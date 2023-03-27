@@ -18,4 +18,6 @@ public enum ProgrammingLanguage
 {
     Markdown,
     Javascript,
+    //Json,
+    //typescript,
 }
