@@ -1,61 +1,77 @@
 ﻿@page
 @model SpikeEditorModel
 @{
-    ViewData["Title"] = "Code editor";
+	ViewData["Title"] = "Code editor";
 }
 
 <h1>@Model.Opgave.Name</h1>
 <p>@Model.Opgave.Description</p>
+<div class="alert alert-success" role="alert" id="hidden-success-alert">
+	The code is correct!!!! 😊
+</div>
+
+<div class="alert alert-danger" role="alert" id="hidden-danger-alert">
+	Improve the code please!
+</div>
 <div id="editor"></div>
 <button type="button" class="btn btn-primary" onclick="RunCode()">Check code</button>
 
-<div class="alert alert-success d-none" role="alert" id="hidden-success-alert">
-    The code is correct!!!! 😊
-</div>
-
-<div class="alert alert-danger d-none" role="alert" id="hidden-danger-alert">
-    Improve the code please!
-</div>
 
 @section Scripts {
 
-<script>
-    var el = document.getElementById('editor');
-    // window.editor is accessible.
-    var editor = null;
-    var init = function () {
+	<script>
+		document.getElementById("hidden-success-alert").style.display = "none";
+		document.getElementById("hidden-danger-alert").style.display = "none";
+		var el = document.getElementById('editor');
+		// window.editor is accessible.
+		var editor = null;
+		var init = function () {
 
-        if (el) {
-            console.log("Loading editor...");
-            el.style.height = '700px';
-            require(['vs/editor/editor.main'], function () {
+			if (el) {
+				console.log("Loading editor...");
+				el.style.height = '700px';
+				require(['vs/editor/editor.main'], function () {
 
-                editor = monaco.editor.create(el, {
-                    theme: 'vs-dark',
-                        //https://stackoverflow.com/questions/4071602/asp-net-mvc-razor-render-without-encoding
-                        model: monaco.editor.createModel(`@Html.Raw(Model.Opgave.InitialCode)`, `@Model.Opgave.Type.ToString().ToLower()`)
-                });
+					editor = monaco.editor.create(el, {
+						theme: 'vs-dark',
+						//https://stackoverflow.com/questions/4071602/asp-net-mvc-razor-render-without-encoding
+						model: monaco.editor.createModel(`@Html.Raw(Model.Opgave.InitialCode)`, `@Model.Opgave.Type.ToString().ToLower()`)
+					});
 
-                editor.layout();
-            });
-        }
+					editor.layout();
+				});
+			}
 
-        // no point in keeping this around.
-        window.removeEventListener("load", init);
-    };
+			// no point in keeping this around.
+			window.removeEventListener("load", init);
+		};
 
-    window.addEventListener("load", init);
+		window.addEventListener("load", init);
 
-    function RunCode() {
-        let TestRunner = `
-        @Html.Raw(Model.Opgave.TestingCode)
-            `;
+		function RunCode() {
 
+			let TestRunner = `
+								
+									let Successful = false;
+									console.log("Running Test Code!");
+									@Html.Raw(Model.Opgave.TestingCode)
+									document.getElementById("hidden-success-alert").style.display = "none";
+									document.getElementById("hidden-danger-alert").style.display = "none";
+									if (Successful)
+									{
+										document.getElementById("hidden-success-alert").style.display = "block";
+									} else {
+										document.getElementById("hidden-danger-alert").style.display = "block";
+									}
+									console.log("Test Code Done!");
+								
+							`;
 
-        eval(window.editor.getValue() + TestRunner); // STILL BAD CODE!
-        //eval(window.editor.getValue()); // STILL BAD CODE!
-        //document.querySelector('#hidden-success-alert').classList.remove('d-none');
-    }
+			
+			eval(window.editor.getValue() + TestRunner); // STILL BAD CODE!
+			//eval(window.editor.getValue()); // STILL BAD CODE!
+			//document.querySelector('#hidden-success-alert').classList.remove('d-none');
+		}
 
-</script>
+	</script>
 }
