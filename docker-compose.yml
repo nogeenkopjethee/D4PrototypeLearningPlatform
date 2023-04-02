@@ -12,6 +12,7 @@ services:
       - "6543:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
+  # you can run a test db with "docker run -d -it --rm --name pg-docker-d4db -e POSTGRES_PASSWORD=SuperSecurePassword4267 -p 5432:5432 postgres"
   db:
     image: postgres
     container_name: d4db
