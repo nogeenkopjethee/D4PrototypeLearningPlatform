@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using D4PrototypeLearningPlatform.Data;
 using Microsoft.EntityFrameworkCore;
 using D4PrototypeLearningPlatform.Model;
-using D4PrototypeLearningPlatform.Data.Migrations;
 
 namespace D4PrototypeLearningPlatform.Pages
 {
