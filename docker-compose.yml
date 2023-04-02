@@ -10,14 +10,12 @@ services:
       - db
     ports:
       - "6543:80"
-      - "6544:443"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
   db:
-    image: mcr.microsoft.com/mssql/server:2022-latest
+    image: postgres
     container_name: d4db
-    ports: 
-      - "1433:1433"
+    ports:
+      - 5432:5432
     environment:
-      SA_PASSWORD: "notthepassword"
-      ACCEPT_EULA: "Y"
+      - POSTGRES_PASSWORD=SuperSecurePassword4267
