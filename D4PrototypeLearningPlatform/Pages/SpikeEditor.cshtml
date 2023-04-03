@@ -100,11 +100,16 @@
 		}
 
 		function RunTest() {
-			window.editor.getModel().setValue('Hello World!');
+			//window.editor.getModel().setValue('Hello World!');
 			document.getElementById('staticBackdrop').focus();
 			var myModalEl = document.querySelector('#staticBackdrop');
 			var modal = bootstrap.Modal.getOrCreateInstance(myModalEl);
 			modal.show();
+		}
+
+
+		function __runSucces() {
+
 		}
 		
 
