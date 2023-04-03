@@ -13,8 +13,36 @@
 <div class="alert alert-danger" role="alert" id="hidden-danger-alert">
 	Improve the code please!
 </div>
+
+
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="staticBackdropLabel">Info</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			
+			
+			<div class="modal-body">
+				Improve the code please!
+			</div>
+
+
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				@*<button type="button" class="btn btn-primary">Understood</button>*@
+			</div>
+		</div>
+	</div>
+</div>
+
+
 <div id="editor"></div>
 <button type="button" class="btn btn-primary" onclick="RunCode()">Check code</button>
+<button type="button" class="btn btn-primary" onclick="RunTest()">TEST</button>
 
 
 @section Scripts {
@@ -31,7 +59,6 @@
 				console.log("Loading editor...");
 				el.style.height = '700px';
 				require(['vs/editor/editor.main'], function () {
-
 					editor = monaco.editor.create(el, {
 						theme: 'vs-dark',
 						//https://stackoverflow.com/questions/4071602/asp-net-mvc-razor-render-without-encoding
@@ -49,9 +76,7 @@
 		window.addEventListener("load", init);
 
 		function RunCode() {
-
 			let TestRunner = `
-								
 									let Successful = false;
 									console.log("Running Test Code!");
 									@Html.Raw(Model.Opgave.TestingCode)
@@ -71,7 +96,17 @@
 			eval(window.editor.getValue() + TestRunner); // STILL BAD CODE!
 			//eval(window.editor.getValue()); // STILL BAD CODE!
 			//document.querySelector('#hidden-success-alert').classList.remove('d-none');
+
 		}
+
+		function RunTest() {
+			window.editor.getModel().setValue('Hello World!');
+			document.getElementById('staticBackdrop').focus();
+			var myModalEl = document.querySelector('#staticBackdrop');
+			var modal = bootstrap.Modal.getOrCreateInstance(myModalEl);
+			modal.show();
+		}
+		
 
 	</script>
 }
