@@ -22,8 +22,16 @@ namespace D4PrototypeLearningPlatform.Pages.Opgaven
         [BindProperty]
         public Opgave Opgave { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(Guid? id)
+        [BindProperty]
+        public string ModuleId { get; set; } = string.Empty;
+
+        [BindProperty]
+        public string CursusId { get; set; } = string.Empty;
+
+        public async Task<IActionResult> OnGetAsync(Guid? id, string? cursus = null, string? module = null)
         {
+            if (cursus != null) { CursusId = cursus; }
+            if (module != null) { ModuleId = module; }
             if (id == null || _context.Opgave == null)
             {
                 return NotFound();

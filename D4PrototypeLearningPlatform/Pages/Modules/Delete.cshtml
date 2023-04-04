@@ -5,6 +5,13 @@
     ViewData["Title"] = "Delete";
 }
 
+@if (Model.CursusId != "")
+{
+    <div>
+        <a asp-page="/Cursussen/Edit" asp-route-id="@Model.CursusId">Back to Cursus</a>
+    </div>
+}
+
 <h1>Delete</h1>
 
 <h3>Are you sure you want to delete this?</h3>
@@ -28,6 +35,7 @@
     
     <form method="post">
         <input type="hidden" asp-for="Module.Id" />
+        <input type="hidden" asp-for="CursusId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-page="./Index">Back to List</a>
     </form>

@@ -53,9 +53,9 @@
                             @Html.DisplayFor(modelItem => item.Description)
                         </td>
                         <td>
-                            <a asp-page="/Modules/Edit" asp-route-id="@item.Id">Edit</a> |
-                            <a asp-page="/Modules/Details" asp-route-id="@item.Id">Details</a> |
-                            <a asp-page="/Modules/Delete" asp-route-id="@item.Id">Delete</a>
+                            <a asp-page="/Modules/Edit" asp-route-id="@item.Id" asp-route-cursus="@Model.Cursus.Id">Edit</a> |
+@*                            <a asp-page="/Modules/Details" asp-route-id="@item.Id" asp-route-cursus="@Model.Cursus.Id">Details</a> |*@
+                            <a asp-page="/Modules/Delete" asp-route-id="@item.Id" asp-route-cursus="@Model.Cursus.Id">Delete</a>
                         </td>
                     </tr>
                 }

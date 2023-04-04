@@ -8,6 +8,20 @@
 <h1>Edit</h1>
 
 <h4>Opgave</h4>
+@if (Model.CursusId != "")
+{
+    <div>
+        <a asp-page="/Cursussen/Edit" asp-route-id="@Model.CursusId">Back to Cursus</a>
+    </div>
+}
+
+@if (Model.ModuleId != "")
+{
+    <div>
+        <a asp-page="/Modules/Edit" asp-route-id="@Model.ModuleId" asp-route-cursus="@Model.CursusId">Back to Module</a>
+    </div>
+}
+
 <hr />
 <div class="row">
     <div class="col-md-10">

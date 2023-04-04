@@ -19,12 +19,16 @@ namespace D4PrototypeLearningPlatform.Pages.Modules
         {
             _context = context;
         }
-
+        // https://localhost:7117/Cursussen/Edit?id=9f674a56-5f98-4c97-97fd-51efdc36f73e
         [BindProperty]
         public Module Module { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(Guid? id)
+        [BindProperty]
+        public string CursusId { get; set; } = string.Empty;
+
+        public async Task<IActionResult> OnGetAsync(Guid? id, string? cursus = null)
         {
+            if (cursus != null) { CursusId = cursus; }
             if (id == null || _context.Module == null)
             {
                 return NotFound();
