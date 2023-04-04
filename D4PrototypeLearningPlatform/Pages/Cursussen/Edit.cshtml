@@ -28,6 +28,45 @@
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
+
+        <h3>Something else!</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cursus.Modules[0].Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cursus.Modules[0].Description)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Cursus.Modules)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            <a asp-page="/Modules/Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-page="/Modules/Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-page="/Modules/Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <form method="post" asp-page-handler="AddModule">
+            <input type="hidden" asp-for="Cursus.Id" />
+            <div class="form-group">
+                <input type="submit" value="Add New Module" class="btn btn-primary" />
+            </div>
+        </form>
     </div>
 </div>
 

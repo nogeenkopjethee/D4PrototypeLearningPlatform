@@ -23,14 +23,15 @@ namespace D4PrototypeLearningPlatform.Pages.Cursussen
         [BindProperty]
         public Cursus Cursus { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(Guid? id)
+
+		public async Task<IActionResult> OnGetAsync(Guid? id)
         {
             if (id == null || _context.Cursus == null)
             {
                 return NotFound();
             }
 
-            var cursus =  await _context.Cursus.FirstOrDefaultAsync(m => m.Id == id);
+            var cursus =  await _context.Cursus.Include(x => x.Modules).FirstOrDefaultAsync(m => m.Id == id);
             if (cursus == null)
             {
                 return NotFound();
@@ -67,6 +68,48 @@ namespace D4PrototypeLearningPlatform.Pages.Cursussen
             }
 
             return RedirectToPage("./Index");
+        }
+
+        public async Task<IActionResult> OnPostAddModuleAsync()
+        {
+            Module module = new()
+            {
+                Name = "New Name",
+            };
+            //if (Cursus.Modules == null)
+            //{
+            //    Cursus.Modules = new List<Module>();
+            //}
+            //var a = _context.Module.Add(module);
+
+            var cursus = _context.Cursus.First(x => x.Id == Cursus.Id);
+            cursus.Modules.Add(module);
+            //_context.Attach(Cursus).State = EntityState.Modified;
+            _context.Cursus.Update(cursus);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                // this is not right
+                if (!CursusExists(cursus.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            // Oh what is this code bad
+            cursus = await _context.Cursus.Include(x => x.Modules).FirstOrDefaultAsync(m => m.Id == Cursus.Id);
+            if (cursus == null)
+            {
+                return NotFound();
+            }
+            Cursus = cursus;
+            return Page();
         }
 
         private bool CursusExists(Guid id)

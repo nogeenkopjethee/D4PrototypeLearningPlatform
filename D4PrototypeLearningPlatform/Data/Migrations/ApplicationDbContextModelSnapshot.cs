@@ -105,7 +105,7 @@ namespace D4PrototypeLearningPlatform.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cursus");
+                    b.ToTable("Cursus", (string)null);
                 });
 
             modelBuilder.Entity("D4PrototypeLearningPlatform.Model.Module", b =>
@@ -128,7 +128,7 @@ namespace D4PrototypeLearningPlatform.Migrations
 
                     b.HasIndex("CursusId");
 
-                    b.ToTable("Module");
+                    b.ToTable("Module", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -291,7 +291,7 @@ namespace D4PrototypeLearningPlatform.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Opgave");
+                    b.ToTable("Opgave", (string)null);
                 });
 
             modelBuilder.Entity("D4PrototypeLearningPlatform.Model.Module", b =>
