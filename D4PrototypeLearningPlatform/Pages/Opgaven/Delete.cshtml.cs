@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using D4PrototypeLearningPlatform.Data;
+using D4PrototypeLearningPlatform.Model;
 
 namespace D4PrototypeLearningPlatform.Pages.Opgaven
 {
@@ -21,8 +22,16 @@ namespace D4PrototypeLearningPlatform.Pages.Opgaven
         [BindProperty]
       public Opgave Opgave { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(Guid? id)
+        [BindProperty]
+        public string ModuleId { get; set; } = string.Empty;
+
+        [BindProperty]
+        public string CursusId { get; set; } = string.Empty;
+
+        public async Task<IActionResult> OnGetAsync(Guid? id, string? cursus = null, string? module = null)
         {
+            if (cursus != null) { CursusId = cursus; }
+            if (module != null) { ModuleId = module; }
             if (id == null || _context.Opgave == null)
             {
                 return NotFound();
@@ -41,7 +50,7 @@ namespace D4PrototypeLearningPlatform.Pages.Opgaven
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(Guid? id)
+        public async Task<IActionResult> OnPostAsync(Guid? id, string? cursus = null, string? module = null)
         {
             if (id == null || _context.Opgave == null)
             {
@@ -56,7 +65,15 @@ namespace D4PrototypeLearningPlatform.Pages.Opgaven
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+
+            if (module == null || cursus == null)
+            {
+                return RedirectToPage("./Index");
+            }
+            else
+            {
+                return Redirect($"/Modules/Edit?id={module}&cursus={cursus}");
+            }
         }
     }
 }

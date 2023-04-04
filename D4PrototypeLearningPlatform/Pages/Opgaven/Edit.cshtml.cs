@@ -73,7 +73,13 @@ namespace D4PrototypeLearningPlatform.Pages.Opgaven
                 }
             }
 
-            return RedirectToPage("./Index");
+
+            // FIXME: we could do better for this!
+            if (string.IsNullOrEmpty(CursusId) || string.IsNullOrEmpty(ModuleId))
+            {
+                return RedirectToPage("./Index");
+            }
+            return Redirect($"./Edit?Id={Opgave.Id}&module={ModuleId}&cursus={CursusId}");
         }
 
         private bool OpgaveExists(Guid id)

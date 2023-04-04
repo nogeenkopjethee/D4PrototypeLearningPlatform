@@ -99,7 +99,11 @@ namespace D4PrototypeLearningPlatform.Pages.Modules
                     throw;
                 }
             }
-            return Redirect($"./Edit?Id={Module.Id}");
+            if (string.IsNullOrEmpty(CursusId))
+            {
+                return Redirect($"./Edit?Id={Module.Id}");
+            }
+            return Redirect($"./Edit?Id={Module.Id}&cursus={CursusId}");
         }
 
         private bool ModuleExists(Guid id)

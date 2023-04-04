@@ -63,7 +63,7 @@
                         <td>
                             <a asp-page="/Opgaven/Edit" asp-route-id="@item.Id" asp-route-cursus="@Model.CursusId" asp-route-module="@Model.Module.Id">Edit</a> |
                             @*<a asp-page="/Opgaven/Details" asp-route-id="@item.Id">Details</a> |*@
-                            <a asp-page="/Opgaven/Delete" asp-route-id="@item.Id" asp-route-cursus="@Model.CursusId">Delete</a>
+                            <a asp-page="/Opgaven/Delete" asp-route-id="@item.Id" asp-route-cursus="@Model.CursusId" asp-route-module="@Model.Module.Id">Delete</a>
                         </td>
                     </tr>
                 }
@@ -71,6 +71,7 @@
         </table>
         <form method="post" asp-page-handler="AddOpgave">
             <input type="hidden" asp-for="Module.Id" />
+            <input type="hidden" asp-for="CursusId" />
             <div class="form-group">
                 <input type="submit" value="Add New Opgave" class="btn btn-primary" />
             </div>
