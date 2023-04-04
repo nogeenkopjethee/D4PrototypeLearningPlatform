@@ -102,14 +102,7 @@ namespace D4PrototypeLearningPlatform.Pages.Cursussen
                     throw;
                 }
             }
-            // Oh what is this code bad
-            cursus = await _context.Cursus.Include(x => x.Modules).FirstOrDefaultAsync(m => m.Id == Cursus.Id);
-            if (cursus == null)
-            {
-                return NotFound();
-            }
-            Cursus = cursus;
-            return Page();
+            return Redirect($"./Edit?Id={Cursus.Id}");
         }
 
         private bool CursusExists(Guid id)

@@ -13,9 +13,9 @@ namespace D4PrototypeLearningPlatform.Pages.Modules
 {
     public class EditModel : PageModel
     {
-        private readonly D4PrototypeLearningPlatform.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public EditModel(D4PrototypeLearningPlatform.Data.ApplicationDbContext context)
+        public EditModel(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -30,7 +30,7 @@ namespace D4PrototypeLearningPlatform.Pages.Modules
                 return NotFound();
             }
 
-            var module =  await _context.Module.FirstOrDefaultAsync(m => m.Id == id);
+            var module =  await _context.Module.Include(x => x.Opgaves).FirstOrDefaultAsync(m => m.Id == id);
             if (module == null)
             {
                 return NotFound();
@@ -75,7 +75,7 @@ namespace D4PrototypeLearningPlatform.Pages.Modules
             {
                 Name = "New Name",
             };
-            var module = _context.Module.First(x => x.Id == Module.Id);
+            var module = _context.Module.Include(m => m.Opgaves).First(x => x.Id == Module.Id);
             module.Opgaves.Add(opgave);
 
             _context.Module.Update(module);
@@ -95,14 +95,7 @@ namespace D4PrototypeLearningPlatform.Pages.Modules
                     throw;
                 }
             }
-            // Oh what is this code bad
-            module = await _context.Module.Include(x => x.Opgaves).FirstOrDefaultAsync(m => m.Id == Module.Id);
-            if (module == null)
-            {
-                return NotFound();
-            }
-            Module = module;
-            return Page();
+            return Redirect($"./Edit?Id={Module.Id}");
         }
 
         private bool ModuleExists(Guid id)
