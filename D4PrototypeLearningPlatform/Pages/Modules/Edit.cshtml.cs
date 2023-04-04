@@ -70,7 +70,11 @@ namespace D4PrototypeLearningPlatform.Pages.Modules
                 }
             }
 
-            return RedirectToPage("./Index");
+            if (string.IsNullOrEmpty(CursusId))
+            {
+                return Redirect($"./Edit?Id={Module.Id}");
+            }
+            return Redirect($"./Edit?Id={Module.Id}&cursus={CursusId}");
         }
 
         public async Task<IActionResult> OnPostAddOpgaveAsync()

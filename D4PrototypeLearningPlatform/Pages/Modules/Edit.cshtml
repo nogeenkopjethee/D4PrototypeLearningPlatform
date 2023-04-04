@@ -14,6 +14,13 @@
         <a asp-page="/Cursussen/Edit" asp-route-id="@Model.CursusId">Back to Cursus</a>
     </div>
 }
+else
+{
+    <div>
+        <a asp-page="./Index">Back to List</a>
+    </div>
+
+}
 
 <hr />
 <div class="row">
@@ -79,9 +86,6 @@
     </div>
 </div>
 
-<div>
-    <a asp-page="./Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

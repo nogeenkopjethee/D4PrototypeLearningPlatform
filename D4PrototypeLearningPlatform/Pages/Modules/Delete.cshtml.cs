@@ -53,7 +53,7 @@ namespace D4PrototypeLearningPlatform.Pages.Modules
             {
                 return NotFound();
             }
-            var module = await _context.Module.FindAsync(id);
+            var module = await _context.Module.Include(x => x.Opgaves).FirstOrDefaultAsync(m => m.Id == id);
 
             if (module != null)
             {

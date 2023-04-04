@@ -67,7 +67,7 @@ namespace D4PrototypeLearningPlatform.Pages.Cursussen
                 }
             }
 
-            return RedirectToPage("./Index");
+            return Redirect($"./Edit?Id={Cursus.Id}");
         }
 
         public async Task<IActionResult> OnPostAddModuleAsync()
