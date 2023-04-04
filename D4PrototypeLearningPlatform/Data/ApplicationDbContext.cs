@@ -15,6 +15,11 @@ namespace D4PrototypeLearningPlatform.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             //builder.Entity<project>().HasMany(i => i.feature).WithMany(); // We could use this if the relation is not working like we would like.
+
+            
+
+
+
             base.OnModelCreating(builder);
         }
 
