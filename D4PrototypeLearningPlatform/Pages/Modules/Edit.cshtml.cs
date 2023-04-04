@@ -69,6 +69,42 @@ namespace D4PrototypeLearningPlatform.Pages.Modules
             return RedirectToPage("./Index");
         }
 
+        public async Task<IActionResult> OnPostAddOpgaveAsync()
+        {
+            Opgave opgave = new()
+            {
+                Name = "New Name",
+            };
+            var module = _context.Module.First(x => x.Id == Module.Id);
+            module.Opgaves.Add(opgave);
+
+            _context.Module.Update(module);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                // this is not right
+                if (!ModuleExists(Module.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            // Oh what is this code bad
+            module = await _context.Module.Include(x => x.Opgaves).FirstOrDefaultAsync(m => m.Id == Module.Id);
+            if (module == null)
+            {
+                return NotFound();
+            }
+            Module = module;
+            return Page();
+        }
+
         private bool ModuleExists(Guid id)
         {
           return _context.Module.Any(e => e.Id == id);
