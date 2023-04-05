@@ -1,74 +1,68 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using D4PrototypeLearningPlatform.Data;
+using D4PrototypeLearningPlatform.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using D4PrototypeLearningPlatform.Data;
-using D4PrototypeLearningPlatform.Model;
-using Microsoft.CodeAnalysis.Differencing;
 
-namespace D4PrototypeLearningPlatform.Pages.Modules
+namespace D4PrototypeLearningPlatform.Pages.Modules;
+
+public class DeleteModel : PageModel
 {
-    public class DeleteModel : PageModel
+    private readonly ApplicationDbContext _context;
+
+    public DeleteModel(ApplicationDbContext context)
     {
-        private readonly D4PrototypeLearningPlatform.Data.ApplicationDbContext _context;
+        _context = context;
+    }
 
-        public DeleteModel(D4PrototypeLearningPlatform.Data.ApplicationDbContext context)
+    [BindProperty]
+    public Module Module { get; set; } = default!;
+
+    [FromQuery]
+    [BindProperty(Name = "cursus", SupportsGet = true)]
+    public string CursusId { get; set; } = string.Empty;
+
+    public async Task<IActionResult> OnGetAsync(Guid? id)
+    {
+        if (id == null || _context.Module == null)
         {
-            _context = context;
+            return NotFound();
         }
 
-        [BindProperty]
-        public Module Module { get; set; }
+        var module = await _context.Module.FirstOrDefaultAsync(m => m.Id == id);
 
-        [BindProperty]
-        public string CursusId { get; set; } = string.Empty;
-
-        public async Task<IActionResult> OnGetAsync(Guid? id, string? cursus = null)
+        if (module == null)
         {
-            if (cursus != null) { CursusId = cursus; }
-            if (id == null || _context.Module == null)
-            {
-                return NotFound();
-            }
-
-            var module = await _context.Module.FirstOrDefaultAsync(m => m.Id == id);
-
-            if (module == null)
-            {
-                return NotFound();
-            }
-            else 
-            {
-                Module = module;
-            }
-            return Page();
+            return NotFound();
         }
-
-        public async Task<IActionResult> OnPostAsync(Guid? id, string? cursus = null)
+        else
         {
-            if (id == null || _context.Module == null)
-            {
-                return NotFound();
-            }
-            var module = await _context.Module.Include(x => x.Opgaves).FirstOrDefaultAsync(m => m.Id == id);
+            Module = module;
+        }
+        return Page();
+    }
 
-            if (module != null)
-            {
-                Module = module;
-                _context.Module.Remove(Module);
-                await _context.SaveChangesAsync();
-            }
-            if (cursus == null)
-            {
-                return RedirectToPage("./Index");
-            }
-            else
-            {
-                return Redirect("/Cursussen/Edit?id=" + cursus);
-            }
+    public async Task<IActionResult> OnPostAsync(Guid? id)
+    {
+        if (id == null || _context.Module == null)
+        {
+            return NotFound();
+        }
+        var module = await _context.Module.Include(x => x.Opgaves).FirstOrDefaultAsync(m => m.Id == id);
+
+        if (module != null)
+        {
+            Module = module;
+            _context.Module.Remove(Module);
+            await _context.SaveChangesAsync();
+        }
+        if (CursusId == null)
+        {
+            return RedirectToPage("./Index");
+        }
+        else
+        {
+            return Redirect("/Cursussen/Edit?id=" + CursusId);
         }
     }
 }

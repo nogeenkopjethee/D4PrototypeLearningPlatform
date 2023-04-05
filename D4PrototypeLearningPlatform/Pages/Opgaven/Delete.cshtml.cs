@@ -1,79 +1,72 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using D4PrototypeLearningPlatform.Data;
-using D4PrototypeLearningPlatform.Model;
 
-namespace D4PrototypeLearningPlatform.Pages.Opgaven
+namespace D4PrototypeLearningPlatform.Pages.Opgaven;
+
+public class DeleteModel : PageModel
 {
-    public class DeleteModel : PageModel
+    private readonly D4PrototypeLearningPlatform.Data.ApplicationDbContext _context;
+
+    public DeleteModel(D4PrototypeLearningPlatform.Data.ApplicationDbContext context)
     {
-        private readonly D4PrototypeLearningPlatform.Data.ApplicationDbContext _context;
+        _context = context;
+    }
 
-        public DeleteModel(D4PrototypeLearningPlatform.Data.ApplicationDbContext context)
+    [BindProperty] 
+    public Opgave Opgave { get; set; } = default!;
+
+    [FromQuery]
+    [BindProperty(Name = "module", SupportsGet = true)]
+    public string ModuleId { get; set; } = string.Empty;
+
+    [FromQuery]
+    [BindProperty(Name = "cursus", SupportsGet = true)]
+    public string CursusId { get; set; } = string.Empty;
+
+    public async Task<IActionResult> OnGetAsync(Guid? id)
+    {
+        if (id == null || _context.Opgave == null)
         {
-            _context = context;
+            return NotFound();
         }
 
-        [BindProperty]
-      public Opgave Opgave { get; set; }
+        var opgave = await _context.Opgave.FirstOrDefaultAsync(m => m.Id == id);
 
-        [BindProperty]
-        public string ModuleId { get; set; } = string.Empty;
-
-        [BindProperty]
-        public string CursusId { get; set; } = string.Empty;
-
-        public async Task<IActionResult> OnGetAsync(Guid? id, string? cursus = null, string? module = null)
+        if (opgave == null)
         {
-            if (cursus != null) { CursusId = cursus; }
-            if (module != null) { ModuleId = module; }
-            if (id == null || _context.Opgave == null)
-            {
-                return NotFound();
-            }
+            return NotFound();
+        }
+        else
+        {
+            Opgave = opgave;
+        }
+        return Page();
+    }
 
-            var opgave = await _context.Opgave.FirstOrDefaultAsync(m => m.Id == id);
+    public async Task<IActionResult> OnPostAsync(Guid? id)
+    {
+        if (id == null || _context.Opgave == null)
+        {
+            return NotFound();
+        }
+        var opgave = await _context.Opgave.FindAsync(id);
 
-            if (opgave == null)
-            {
-                return NotFound();
-            }
-            else 
-            {
-                Opgave = opgave;
-            }
-            return Page();
+        if (opgave != null)
+        {
+            Opgave = opgave;
+            _context.Opgave.Remove(Opgave);
+            await _context.SaveChangesAsync();
         }
 
-        public async Task<IActionResult> OnPostAsync(Guid? id, string? cursus = null, string? module = null)
+
+        if (ModuleId == null || CursusId == null)
         {
-            if (id == null || _context.Opgave == null)
-            {
-                return NotFound();
-            }
-            var opgave = await _context.Opgave.FindAsync(id);
-
-            if (opgave != null)
-            {
-                Opgave = opgave;
-                _context.Opgave.Remove(Opgave);
-                await _context.SaveChangesAsync();
-            }
-
-
-            if (module == null || cursus == null)
-            {
-                return RedirectToPage("./Index");
-            }
-            else
-            {
-                return Redirect($"/Modules/Edit?id={module}&cursus={cursus}");
-            }
+            return RedirectToPage("./Index");
+        }
+        else
+        {
+            return Redirect($"/Modules/Edit?id={ModuleId}&cursus={CursusId}");
         }
     }
 }

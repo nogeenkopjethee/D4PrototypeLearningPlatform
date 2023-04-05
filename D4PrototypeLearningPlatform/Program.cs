@@ -1,4 +1,5 @@
 using D4PrototypeLearningPlatform.Data;
+using D4PrototypeLearningPlatform.Middleware;
 using D4PrototypeLearningPlatform.Model;
 using D4PrototypeLearningPlatform.Services;
 using Microsoft.AspNetCore.Identity;
@@ -13,8 +14,8 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
-	.AddSignInManager<MySignInManager>()
-	.AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddSignInManager<MySignInManager>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.AuthorizeFolder("/Modules");
@@ -54,25 +55,25 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-	var services = scope.ServiceProvider;
+    var services = scope.ServiceProvider;
 
 #if DEBUG
     // Apply the migration with code!
     var context = services.GetRequiredService<ApplicationDbContext>();
-	try
-	{
-		context.Database.Migrate();
-	}
-	catch (Exception ex)
-	{
-		Console.WriteLine(ex.ToString());
-		throw;
-	}
+    try
+    {
+        context.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.ToString());
+        throw;
+    }
 #endif
 
     // Apply the roles!
     Task task = DefaultDatabaseData.InitializeAsync(services);
-	task.Wait();
+    task.Wait();
 }
 
 
@@ -92,6 +93,10 @@ else
 app.UseStaticFiles();
 
 app.UseRouting();
+
+#if DEBUG
+app.UseMiddleware<UrlLoggerMiddleware>();
+#endif
 
 app.UseAuthentication();
 app.UseAuthorization();

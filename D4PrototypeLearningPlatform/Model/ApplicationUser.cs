@@ -1,10 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace D4PrototypeLearningPlatform.Model
+namespace D4PrototypeLearningPlatform.Model;
+
+public class ApplicationUser : IdentityUser
 {
-    public class ApplicationUser : IdentityUser
-    {
-        [PersonalData]
-        public JavascriptInfo JavascriptInfo { get; set; } = JavascriptInfo.None;
-    }
+    [PersonalData]
+    public JavascriptInfo JavascriptInfo { get; set; } = JavascriptInfo.None;
 }

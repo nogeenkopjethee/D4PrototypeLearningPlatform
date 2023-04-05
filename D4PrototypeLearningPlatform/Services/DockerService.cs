@@ -5,17 +5,17 @@ namespace D4PrototypeLearningPlatform.Services;
 
 public class DockerService
 {
-    public DockerService() 
+    public DockerService()
     {
-        
+
     }
 
     /// <summary>
     /// This is some example code.
     /// </summary>
     /// <returns></returns>
-    static async Task Spike()
-    {
+    //static async Task Spike()
+    //{
         //// Create a docker client
         //// for linux use "unix:///var/run/docker.sock"
         //var client = new DockerClientConfiguration(new Uri("npipe://./pipe/docker_engine")).CreateClient();
@@ -114,7 +114,7 @@ public class DockerService
         //    // Dispose the client
         //    client.Dispose();
         //}
-    }
+    //}
 
 
     //public static Task<ContainerExecCreateResponse> RunCommand(DockerClient client, string[] commands, string containerId)
@@ -153,7 +153,7 @@ public class DockerService
             };
 
             // Now we create a process, assign its ProcessStartInfo and start it
-            System.Diagnostics.Process proc = new System.Diagnostics.Process();
+            System.Diagnostics.Process proc = new();
             proc.StartInfo = procStartInfo;
             proc.Start();
             // Get the output into a string
