@@ -23,12 +23,12 @@ namespace D4PrototypeLearningPlatform.Pages.Modules
         [BindProperty]
         public Module Module { get; set; } = default!;
 
-        [BindProperty]
+        [FromQuery]
+        [BindProperty(Name = "cursus", SupportsGet = true)]
         public string CursusId { get; set; } = string.Empty;
 
-        public async Task<IActionResult> OnGetAsync(Guid? id, string? cursus = null)
+        public async Task<IActionResult> OnGetAsync(Guid? id)
         {
-            if (cursus != null) { CursusId = cursus; }
             if (id == null || _context.Module == null)
             {
                 return NotFound();

@@ -13,9 +13,9 @@ namespace D4PrototypeLearningPlatform.Pages.Modules
 {
     public class DeleteModel : PageModel
     {
-        private readonly D4PrototypeLearningPlatform.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public DeleteModel(D4PrototypeLearningPlatform.Data.ApplicationDbContext context)
+        public DeleteModel(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -23,12 +23,12 @@ namespace D4PrototypeLearningPlatform.Pages.Modules
         [BindProperty]
         public Module Module { get; set; }
 
-        [BindProperty]
+        [FromQuery]
+        [BindProperty(Name = "cursus", SupportsGet = true)]
         public string CursusId { get; set; } = string.Empty;
 
-        public async Task<IActionResult> OnGetAsync(Guid? id, string? cursus = null)
+        public async Task<IActionResult> OnGetAsync(Guid? id)
         {
-            if (cursus != null) { CursusId = cursus; }
             if (id == null || _context.Module == null)
             {
                 return NotFound();
@@ -47,7 +47,7 @@ namespace D4PrototypeLearningPlatform.Pages.Modules
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(Guid? id, string? cursus = null)
+        public async Task<IActionResult> OnPostAsync(Guid? id)
         {
             if (id == null || _context.Module == null)
             {
@@ -61,13 +61,13 @@ namespace D4PrototypeLearningPlatform.Pages.Modules
                 _context.Module.Remove(Module);
                 await _context.SaveChangesAsync();
             }
-            if (cursus == null)
+            if (CursusId == null)
             {
                 return RedirectToPage("./Index");
             }
             else
             {
-                return Redirect("/Cursussen/Edit?id=" + cursus);
+                return Redirect("/Cursussen/Edit?id=" + CursusId);
             }
         }
     }

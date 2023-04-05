@@ -22,16 +22,16 @@ namespace D4PrototypeLearningPlatform.Pages.Opgaven
         [BindProperty]
         public Opgave Opgave { get; set; } = default!;
 
-        [BindProperty]
+        [FromQuery]
+        [BindProperty(Name = "module", SupportsGet = true)]
         public string ModuleId { get; set; } = string.Empty;
 
-        [BindProperty]
+        [FromQuery]
+        [BindProperty(Name = "cursus", SupportsGet = true)]
         public string CursusId { get; set; } = string.Empty;
 
-        public async Task<IActionResult> OnGetAsync(Guid? id, string? cursus = null, string? module = null)
+        public async Task<IActionResult> OnGetAsync(Guid? id)
         {
-            if (cursus != null) { CursusId = cursus; }
-            if (module != null) { ModuleId = module; }
             if (id == null || _context.Opgave == null)
             {
                 return NotFound();

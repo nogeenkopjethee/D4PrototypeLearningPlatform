@@ -20,18 +20,18 @@ namespace D4PrototypeLearningPlatform.Pages.Opgaven
         }
 
         [BindProperty]
-      public Opgave Opgave { get; set; }
+        public Opgave Opgave { get; set; }
 
-        [BindProperty]
+        [FromQuery]
+        [BindProperty(Name = "module", SupportsGet = true)]
         public string ModuleId { get; set; } = string.Empty;
 
-        [BindProperty]
+        [FromQuery]
+        [BindProperty(Name = "cursus", SupportsGet = true)]
         public string CursusId { get; set; } = string.Empty;
 
-        public async Task<IActionResult> OnGetAsync(Guid? id, string? cursus = null, string? module = null)
+        public async Task<IActionResult> OnGetAsync(Guid? id)
         {
-            if (cursus != null) { CursusId = cursus; }
-            if (module != null) { ModuleId = module; }
             if (id == null || _context.Opgave == null)
             {
                 return NotFound();
@@ -50,7 +50,7 @@ namespace D4PrototypeLearningPlatform.Pages.Opgaven
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(Guid? id, string? cursus = null, string? module = null)
+        public async Task<IActionResult> OnPostAsync(Guid? id)
         {
             if (id == null || _context.Opgave == null)
             {
@@ -66,13 +66,13 @@ namespace D4PrototypeLearningPlatform.Pages.Opgaven
             }
 
 
-            if (module == null || cursus == null)
+            if (ModuleId == null || CursusId == null)
             {
                 return RedirectToPage("./Index");
             }
             else
             {
-                return Redirect($"/Modules/Edit?id={module}&cursus={cursus}");
+                return Redirect($"/Modules/Edit?id={ModuleId}&cursus={CursusId}");
             }
         }
     }

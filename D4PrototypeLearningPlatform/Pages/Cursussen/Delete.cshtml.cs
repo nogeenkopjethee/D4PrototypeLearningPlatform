@@ -12,9 +12,9 @@ namespace D4PrototypeLearningPlatform.Pages.Cursussen
 {
     public class DeleteModel : PageModel
     {
-        private readonly D4PrototypeLearningPlatform.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public DeleteModel(D4PrototypeLearningPlatform.Data.ApplicationDbContext context)
+        public DeleteModel(ApplicationDbContext context)
         {
             _context = context;
         }
