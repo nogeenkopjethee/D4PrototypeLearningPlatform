@@ -6,5 +6,5 @@ public class Cursus
     public string Name { get; set; } = "";
     public string Description { get; set; } = "";
 
-    public IList<Module>? Modules { get; set; } = new List<Module>();
+    public IList<Module> Modules { get; set; } = new List<Module>();
 }

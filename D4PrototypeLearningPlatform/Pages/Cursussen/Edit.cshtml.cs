@@ -70,15 +70,10 @@ public class EditModel : PageModel
         {
             Name = "New Name",
         };
-        //if (Cursus.Modules == null)
-        //{
-        //    Cursus.Modules = new List<Module>();
-        //}
-        //var a = _context.Module.Add(module);
 
         var cursus = _context.Cursus.First(x => x.Id == Cursus.Id);
         cursus.Modules.Add(module);
-        //_context.Attach(Cursus).State = EntityState.Modified;
+
         _context.Cursus.Update(cursus);
         try
         {

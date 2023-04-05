@@ -1,4 +1,5 @@
 ﻿using D4PrototypeLearningPlatform.Model;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
@@ -19,7 +20,9 @@ public class DefaultDatabaseData
         var roleManager = serviceProvider.GetService<RoleManager<IdentityRole>>();
 
         if (roleManager == null)
+        {
             throw new ArgumentNullException(nameof(roleManager));
+        }
 
 
         // List of default roles!
@@ -63,13 +66,17 @@ public class DefaultDatabaseData
 
         await AssignRoles(serviceProvider, user.Email, roles);
 #endif
-        context.SaveChangesAsync();
+        await context.SaveChangesAsync();
     }
 
     public static async Task<IdentityResult> AssignRoles(IServiceProvider services, string email, string[] roles)
     {
-        UserManager<ApplicationUser> _userManager = services.GetService<UserManager<ApplicationUser>>();
-        ApplicationUser user = await _userManager.FindByEmailAsync(email);
+        UserManager<ApplicationUser>? _userManager = services.GetService<UserManager<ApplicationUser>>();
+        if (_userManager == null) { return IdentityResult.Failed(); }
+
+        ApplicationUser? user = await _userManager.FindByEmailAsync(email);
+        if (user == null) { return IdentityResult.Failed(); }
+
         var result = await _userManager.AddToRolesAsync(user, roles);
 
         return result;

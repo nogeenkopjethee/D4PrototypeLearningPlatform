@@ -13,8 +13,8 @@ public class DeleteModel : PageModel
         _context = context;
     }
 
-    [BindProperty]
-    public Opgave Opgave { get; set; }
+    [BindProperty] 
+    public Opgave Opgave { get; set; } = default!;
 
     [FromQuery]
     [BindProperty(Name = "module", SupportsGet = true)]

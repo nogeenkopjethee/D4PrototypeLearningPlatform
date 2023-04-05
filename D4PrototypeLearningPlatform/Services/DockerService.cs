@@ -14,8 +14,8 @@ public class DockerService
     /// This is some example code.
     /// </summary>
     /// <returns></returns>
-    static async Task Spike()
-    {
+    //static async Task Spike()
+    //{
         //// Create a docker client
         //// for linux use "unix:///var/run/docker.sock"
         //var client = new DockerClientConfiguration(new Uri("npipe://./pipe/docker_engine")).CreateClient();
@@ -114,7 +114,7 @@ public class DockerService
         //    // Dispose the client
         //    client.Dispose();
         //}
-    }
+    //}
 
 
     //public static Task<ContainerExecCreateResponse> RunCommand(DockerClient client, string[] commands, string containerId)

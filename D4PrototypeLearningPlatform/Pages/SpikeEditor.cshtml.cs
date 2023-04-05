@@ -10,7 +10,7 @@ public class SpikeEditorModel : PageModel
     private readonly D4PrototypeLearningPlatform.Data.ApplicationDbContext _context;
 
 
-    public Opgave? Opgave { get; set; }
+    public Opgave Opgave { get; set; } = default!;
 
     public bool EnableInBrowserCodeRunner { get; set; } = false;
 

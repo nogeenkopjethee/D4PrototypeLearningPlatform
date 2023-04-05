@@ -7,5 +7,5 @@ public class Module
 
     public string? Description { get; set; } = "";
 
-    public IList<Opgave>? Opgaves { get; set; } = new List<Opgave>();
+    public IList<Opgave> Opgaves { get; set; } = new List<Opgave>();
 }

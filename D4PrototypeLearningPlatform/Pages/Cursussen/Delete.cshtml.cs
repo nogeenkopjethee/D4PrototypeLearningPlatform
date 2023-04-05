@@ -16,7 +16,7 @@ public class DeleteModel : PageModel
     }
 
     [BindProperty]
-    public Cursus Cursus { get; set; }
+    public Cursus Cursus { get; set; } = default!;
 
     public async Task<IActionResult> OnGetAsync(Guid? id)
     {

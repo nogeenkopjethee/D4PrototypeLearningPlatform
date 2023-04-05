@@ -21,7 +21,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
         base.OnModelCreating(builder);
     }
 
-    public DbSet<Module>? Module { get; set; }
-    public DbSet<Cursus>? Cursus { get; set; }
+    public DbSet<Module> Module { get; set; }
+    public DbSet<Cursus> Cursus { get; set; }
     public DbSet<Opgave> Opgave { get; set; }
 }

@@ -16,7 +16,7 @@ public class DeleteModel : PageModel
     }
 
     [BindProperty]
-    public Module Module { get; set; }
+    public Module Module { get; set; } = default!;
 
     [FromQuery]
     [BindProperty(Name = "cursus", SupportsGet = true)]
