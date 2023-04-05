@@ -78,7 +78,7 @@ else
         </table>
         <form method="post" asp-page-handler="AddOpgave">
             <input type="hidden" asp-for="Module.Id" />
-            <input type="hidden" asp-for="CursusId" />
+            @*<input type="hidden" asp-for="CursusId" asp-route-cursus="cursus" />*@
             <div class="form-group">
                 <input type="submit" value="Add New Opgave" class="btn btn-primary" />
             </div>

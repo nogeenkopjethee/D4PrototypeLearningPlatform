@@ -5,9 +5,9 @@ namespace D4PrototypeLearningPlatform.Services;
 
 public class DockerService
 {
-    public DockerService() 
+    public DockerService()
     {
-        
+
     }
 
     /// <summary>
@@ -153,7 +153,7 @@ public class DockerService
             };
 
             // Now we create a process, assign its ProcessStartInfo and start it
-            System.Diagnostics.Process proc = new System.Diagnostics.Process();
+            System.Diagnostics.Process proc = new();
             proc.StartInfo = procStartInfo;
             proc.Start();
             // Get the output into a string
