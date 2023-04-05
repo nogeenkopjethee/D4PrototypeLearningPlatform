@@ -1,4 +1,5 @@
 using D4PrototypeLearningPlatform.Data;
+using D4PrototypeLearningPlatform.Middleware;
 using D4PrototypeLearningPlatform.Model;
 using D4PrototypeLearningPlatform.Services;
 using Microsoft.AspNetCore.Identity;
@@ -92,6 +93,10 @@ else
 app.UseStaticFiles();
 
 app.UseRouting();
+
+#if DEBUG
+app.UseMiddleware<PerformanceMiddleware>();
+#endif
 
 app.UseAuthentication();
 app.UseAuthorization();
