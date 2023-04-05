@@ -10,4 +10,4 @@ This needs to be installed!
 - Docker
 
 Use the next command to run the postgres database:
-`docker run -d -it --rm -e POSTGRES_PASSWORD=SuperSecurePassword4267 -p 5432:5432 postgres`
+`docker run -d -it --rm -e POSTGRES_PASSWORD=SuperSecurePassword4267 -p 5432:5432Â postgres`
