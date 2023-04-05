@@ -14,6 +14,7 @@ public class EditModel : PageModel
     {
         _context = context;
     }
+
     // https://localhost:7117/Cursussen/Edit?id=9f674a56-5f98-4c97-97fd-51efdc36f73e
     [BindProperty]
     public Module Module { get; set; } = default!;
