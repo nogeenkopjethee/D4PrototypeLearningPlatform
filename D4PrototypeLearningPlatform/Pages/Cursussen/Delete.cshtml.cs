@@ -20,7 +20,7 @@ namespace D4PrototypeLearningPlatform.Pages.Cursussen
         }
 
         [BindProperty]
-      public Cursus Cursus { get; set; }
+        public Cursus Cursus { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -28,7 +28,7 @@ namespace D4PrototypeLearningPlatform.Pages.Cursussen
             {
                 return NotFound();
             }
-
+            // 
             var cursus = await _context.Cursus.FirstOrDefaultAsync(m => m.Id == id);
 
             if (cursus == null)
@@ -48,7 +48,8 @@ namespace D4PrototypeLearningPlatform.Pages.Cursussen
             {
                 return NotFound();
             }
-            var cursus = await _context.Cursus.FindAsync(id);
+            // findasync is not working with the include statement for no reason!
+            var cursus = await _context.Cursus.Include(x => x.Modules).FirstOrDefaultAsync(m => m.Id == id);
 
             if (cursus != null)
             {

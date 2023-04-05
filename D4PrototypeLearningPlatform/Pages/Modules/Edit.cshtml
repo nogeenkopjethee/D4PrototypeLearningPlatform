@@ -8,12 +8,27 @@
 <h1>Edit</h1>
 
 <h4>Module</h4>
+@if (Model.CursusId != "")
+{
+    <div>
+        <a asp-page="/Cursussen/Edit" asp-route-id="@Model.CursusId">Back to Cursus</a>
+    </div>
+}
+else
+{
+    <div>
+        <a asp-page="./Index">Back to List</a>
+    </div>
+
+}
+
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Module.Id" />
+            <input type="hidden" asp-for="CursusId" />
             <div class="form-group">
                 <label asp-for="Module.Name" class="control-label"></label>
                 <input asp-for="Module.Name" class="form-control" />
@@ -28,12 +43,49 @@
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
+
+        <h4>Linked Opgaves!</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Module.Opgaves[0].Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Module.Opgaves[0].Description)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Module.Opgaves)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            <a asp-page="/Opgaven/Edit" asp-route-id="@item.Id" asp-route-cursus="@Model.CursusId" asp-route-module="@Model.Module.Id">Edit</a> |
+                            @*<a asp-page="/Opgaven/Details" asp-route-id="@item.Id">Details</a> |*@
+                            <a asp-page="/Opgaven/Delete" asp-route-id="@item.Id" asp-route-cursus="@Model.CursusId" asp-route-module="@Model.Module.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <form method="post" asp-page-handler="AddOpgave">
+            <input type="hidden" asp-for="Module.Id" />
+            <input type="hidden" asp-for="CursusId" />
+            <div class="form-group">
+                <input type="submit" value="Add New Opgave" class="btn btn-primary" />
+            </div>
+        </form>
     </div>
 </div>
 
-<div>
-    <a asp-page="./Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

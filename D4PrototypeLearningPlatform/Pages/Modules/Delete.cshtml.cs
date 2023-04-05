@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using D4PrototypeLearningPlatform.Data;
 using D4PrototypeLearningPlatform.Model;
+using Microsoft.CodeAnalysis.Differencing;
 
 namespace D4PrototypeLearningPlatform.Pages.Modules
 {
@@ -20,10 +21,14 @@ namespace D4PrototypeLearningPlatform.Pages.Modules
         }
 
         [BindProperty]
-      public Module Module { get; set; }
+        public Module Module { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(Guid? id)
+        [BindProperty]
+        public string CursusId { get; set; } = string.Empty;
+
+        public async Task<IActionResult> OnGetAsync(Guid? id, string? cursus = null)
         {
+            if (cursus != null) { CursusId = cursus; }
             if (id == null || _context.Module == null)
             {
                 return NotFound();
@@ -42,13 +47,13 @@ namespace D4PrototypeLearningPlatform.Pages.Modules
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(Guid? id)
+        public async Task<IActionResult> OnPostAsync(Guid? id, string? cursus = null)
         {
             if (id == null || _context.Module == null)
             {
                 return NotFound();
             }
-            var module = await _context.Module.FindAsync(id);
+            var module = await _context.Module.Include(x => x.Opgaves).FirstOrDefaultAsync(m => m.Id == id);
 
             if (module != null)
             {
@@ -56,8 +61,14 @@ namespace D4PrototypeLearningPlatform.Pages.Modules
                 _context.Module.Remove(Module);
                 await _context.SaveChangesAsync();
             }
-
-            return RedirectToPage("./Index");
+            if (cursus == null)
+            {
+                return RedirectToPage("./Index");
+            }
+            else
+            {
+                return Redirect("/Cursussen/Edit?id=" + cursus);
+            }
         }
     }
 }

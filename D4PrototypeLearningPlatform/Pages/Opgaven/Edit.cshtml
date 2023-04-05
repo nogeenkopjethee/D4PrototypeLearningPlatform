@@ -8,12 +8,35 @@
 <h1>Edit</h1>
 
 <h4>Opgave</h4>
+@if (Model.CursusId != "")
+{
+    <div>
+        <a asp-page="/Cursussen/Edit" asp-route-id="@Model.CursusId">Back to Cursus</a>
+    </div>
+}
+
+@if (Model.ModuleId != "")
+{
+    <div>
+        <a asp-page="/Modules/Edit" asp-route-id="@Model.ModuleId" asp-route-cursus="@Model.CursusId">Back to Module</a>
+    </div>
+}
+else
+{
+    <div>
+        <a asp-page="./Index">Back to List</a>
+    </div>
+}
+
 <hr />
 <div class="row">
     <div class="col-md-10">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Opgave.Id" />
+            <input type="hidden" asp-for="CursusId" />
+            <input type="hidden" asp-for="ModuleId" />
+
             <div class="form-group">
                 <label asp-for="Opgave.Name" class="control-label"></label>
                 <input asp-for="Opgave.Name" class="form-control" />
@@ -49,9 +72,7 @@
     </div>
 </div>
 
-<div>
-    <a asp-page="./Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

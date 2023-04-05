@@ -12,7 +12,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddRoles<IdentityRole>()
+	.AddSignInManager<MySignInManager>()
+	.AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.AuthorizeFolder("/Modules");
@@ -49,6 +51,30 @@ builder.Services.AddSingleton<DockerService>(); // This could be removed if we d
 
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+	var services = scope.ServiceProvider;
+
+#if DEBUG
+    // Apply the migration with code!
+    var context = services.GetRequiredService<ApplicationDbContext>();
+	try
+	{
+		context.Database.Migrate();
+	}
+	catch (Exception ex)
+	{
+		Console.WriteLine(ex.ToString());
+		throw;
+	}
+#endif
+
+    // Apply the roles!
+    Task task = DefaultDatabaseData.InitializeAsync(services);
+	task.Wait();
+}
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

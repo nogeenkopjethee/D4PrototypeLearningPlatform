@@ -13,24 +13,28 @@ namespace D4PrototypeLearningPlatform.Pages.Modules
 {
     public class EditModel : PageModel
     {
-        private readonly D4PrototypeLearningPlatform.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public EditModel(D4PrototypeLearningPlatform.Data.ApplicationDbContext context)
+        public EditModel(ApplicationDbContext context)
         {
             _context = context;
         }
-
+        // https://localhost:7117/Cursussen/Edit?id=9f674a56-5f98-4c97-97fd-51efdc36f73e
         [BindProperty]
         public Module Module { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(Guid? id)
+        [BindProperty]
+        public string CursusId { get; set; } = string.Empty;
+
+        public async Task<IActionResult> OnGetAsync(Guid? id, string? cursus = null)
         {
+            if (cursus != null) { CursusId = cursus; }
             if (id == null || _context.Module == null)
             {
                 return NotFound();
             }
 
-            var module =  await _context.Module.FirstOrDefaultAsync(m => m.Id == id);
+            var module =  await _context.Module.Include(x => x.Opgaves).FirstOrDefaultAsync(m => m.Id == id);
             if (module == null)
             {
                 return NotFound();
@@ -66,7 +70,44 @@ namespace D4PrototypeLearningPlatform.Pages.Modules
                 }
             }
 
-            return RedirectToPage("./Index");
+            if (string.IsNullOrEmpty(CursusId))
+            {
+                return Redirect($"./Edit?Id={Module.Id}");
+            }
+            return Redirect($"./Edit?Id={Module.Id}&cursus={CursusId}");
+        }
+
+        public async Task<IActionResult> OnPostAddOpgaveAsync()
+        {
+            Opgave opgave = new()
+            {
+                Name = "New Name",
+            };
+            var module = _context.Module.Include(m => m.Opgaves).First(x => x.Id == Module.Id);
+            module.Opgaves.Add(opgave);
+
+            _context.Module.Update(module);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                // this is not right
+                if (!ModuleExists(Module.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            if (string.IsNullOrEmpty(CursusId))
+            {
+                return Redirect($"./Edit?Id={Module.Id}");
+            }
+            return Redirect($"./Edit?Id={Module.Id}&cursus={CursusId}");
         }
 
         private bool ModuleExists(Guid id)

@@ -7,6 +7,21 @@
 
 <h1>Delete</h1>
 
+<h4>Opgave</h4>
+@if (Model.CursusId != "")
+{
+    <div>
+        <a asp-page="/Cursussen/Edit" asp-route-id="@Model.CursusId">Back to Cursus</a>
+    </div>
+}
+
+@if (Model.ModuleId != "")
+{
+    <div>
+        <a asp-page="/Modules/Edit" asp-route-id="@Model.ModuleId" asp-route-cursus="@Model.CursusId">Back to Module</a>
+    </div>
+}
+
 <h3>Are you sure you want to delete this?</h3>
 <div>
     <h4>Opgave</h4>

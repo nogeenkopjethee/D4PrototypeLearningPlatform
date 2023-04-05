@@ -6,6 +6,6 @@
         public string Name { get; set; } = "";
         public string Description { get; set; } = "";
 
-        public List<Module>? Modules { get; set; }
+        public IList<Module>? Modules { get; set; } = new List<Module>();
     }
 }

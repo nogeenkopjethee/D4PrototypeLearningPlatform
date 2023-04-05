@@ -118,7 +118,6 @@ namespace D4PrototypeLearningPlatform.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
@@ -275,25 +274,27 @@ namespace D4PrototypeLearningPlatform.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("InitialCode")
-                        .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<Guid?>("ModuleId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("TestingCode")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("Type")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ModuleId");
 
                     b.ToTable("Opgave");
                 });
@@ -356,9 +357,21 @@ namespace D4PrototypeLearningPlatform.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Opgave", b =>
+                {
+                    b.HasOne("D4PrototypeLearningPlatform.Model.Module", null)
+                        .WithMany("Opgaves")
+                        .HasForeignKey("ModuleId");
+                });
+
             modelBuilder.Entity("D4PrototypeLearningPlatform.Model.Cursus", b =>
                 {
                     b.Navigation("Modules");
+                });
+
+            modelBuilder.Entity("D4PrototypeLearningPlatform.Model.Module", b =>
+                {
+                    b.Navigation("Opgaves");
                 });
 #pragma warning restore 612, 618
         }
