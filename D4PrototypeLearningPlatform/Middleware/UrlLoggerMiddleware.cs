@@ -6,12 +6,12 @@ using System.Diagnostics;
 namespace D4PrototypeLearningPlatform.Middleware;
 
 //https://stackoverflow.com/questions/58444525/how-to-log-the-selected-asp-net-core-mvc-route
-public class PerformanceMiddleware
+public class UrlLoggerMiddleware
 {
     private readonly RequestDelegate _next;
-    private readonly ILogger<PerformanceMiddleware> _logger;
+    private readonly ILogger<UrlLoggerMiddleware> _logger;
 
-    public PerformanceMiddleware(RequestDelegate requestDelegate, ILogger<PerformanceMiddleware> logger)
+    public UrlLoggerMiddleware(RequestDelegate requestDelegate, ILogger<UrlLoggerMiddleware> logger)
     {
         _next = requestDelegate;
         _logger = logger;
@@ -19,23 +19,8 @@ public class PerformanceMiddleware
 
     public Task Invoke(HttpContext httpContext)
     {
-        //var watch = new Stopwatch();
-        //watch.Start();
         _logger.LogInformation(httpContext.Request.GetDisplayUrl());
         var nextTask = _next.Invoke(httpContext);
-        //nextTask.ContinueWith(t =>
-        //{
-        //    var time = watch.ElapsedMilliseconds;
-        //    var requestString = $"[{httpRequest.Method}]{httpRequest.Path}?{httpRequest.QueryString}";
-        //    if (t.Status == TaskStatus.RanToCompletion)
-        //    {
-        //        ..log.Info..($"{time}ms {requestString}");
-        //    }
-        //    else
-        //    {
-        //        ..log.Warn..($"{time}ms [{t.Status}] - {requestString}", t.Exception?.InnerException);
-        //    }
-        //});
         return nextTask;
     }
 }

@@ -95,7 +95,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 #if DEBUG
-app.UseMiddleware<PerformanceMiddleware>();
+app.UseMiddleware<UrlLoggerMiddleware>();
 #endif
 
 app.UseAuthentication();
