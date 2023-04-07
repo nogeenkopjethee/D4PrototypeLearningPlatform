@@ -40,7 +40,7 @@
                         @Html.DisplayFor(modelItem => item.Type)
                     </td>
                     <td>
-                        <a asp-page="/SpikeEditor" asp-route-id="@item.Id">Try It</a>
+                        <a asp-page="/SpikeEditor" asp-route-id="@item.Id" asp-route-cursus="@Model.Cursus.Id" >Try It</a>
                     </td>
                 </tr>
             }

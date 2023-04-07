@@ -43,7 +43,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="staticBackdropLabel">Info</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				@*<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>*@
 			</div>
 
 
@@ -52,9 +52,9 @@
 			</div>
 
 
-
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				<a asp-page="/Student/List" asp-route-id="@Model.CursusId" class="btn btn-primary">Back to list!</a>
+				@*<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back To List!</button>*@
 				@*<button type="button" class="btn btn-primary">Understood</button>*@
 			</div>
 		</div>
@@ -63,7 +63,7 @@
 
 <div id="editor"></div>
 <button type="button" class="btn btn-primary" onclick="RunCode()">Check code</button>
-<button type="button" class="btn btn-primary" onclick="RunTest()">TEST</button>
+@*<button type="button" class="btn btn-primary" onclick="RunTest()">TEST</button>*@
 
 
 @section Scripts {
