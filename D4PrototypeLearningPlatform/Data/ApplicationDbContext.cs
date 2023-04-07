@@ -24,4 +24,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<Module> Module { get; set; }
     public DbSet<Cursus> Cursus { get; set; }
     public DbSet<Opgave> Opgave { get; set; }
+    public DbSet<UserProgress> UserProgress { get; set; }
+
+    public DbSet<EnroledCurses> EnroledCurses { get; set; }
 }

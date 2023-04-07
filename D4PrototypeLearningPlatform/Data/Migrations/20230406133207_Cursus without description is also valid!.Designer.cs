@@ -3,6 +3,7 @@ using System;
 using D4PrototypeLearningPlatform.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace D4PrototypeLearningPlatform.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230406133207_Cursus without description is also valid!")]
+    partial class Cursuswithoutdescriptionisalsovalid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,23 +110,6 @@ namespace D4PrototypeLearningPlatform.Migrations
                     b.ToTable("Cursus");
                 });
 
-            modelBuilder.Entity("D4PrototypeLearningPlatform.Model.EnroledCurses", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("CursusId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("EnroledCurses");
-                });
-
             modelBuilder.Entity("D4PrototypeLearningPlatform.Model.Module", b =>
                 {
                     b.Property<Guid>("Id")
@@ -145,29 +131,6 @@ namespace D4PrototypeLearningPlatform.Migrations
                     b.HasIndex("CursusId");
 
                     b.ToTable("Module");
-                });
-
-            modelBuilder.Entity("D4PrototypeLearningPlatform.Model.UserProgress", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("CursusId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("ModuleId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("OpgaveId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserProgress");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

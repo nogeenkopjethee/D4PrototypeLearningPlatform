@@ -49,6 +49,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 
 builder.Services.AddSingleton<DockerService>(); // This could be removed if we don't use it!
+builder.Services.AddTransient<LearnService>(); // This could be removed if we don't use it!
 
 
 var app = builder.Build();

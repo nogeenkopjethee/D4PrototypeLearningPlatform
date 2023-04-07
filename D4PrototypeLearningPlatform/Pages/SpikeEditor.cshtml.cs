@@ -14,7 +14,13 @@ public class SpikeEditorModel : PageModel
 
     public bool EnableInBrowserCodeRunner { get; set; } = false;
 
-    public SpikeEditorModel(ApplicationDbContext context)
+
+	[FromQuery]
+	[BindProperty(Name = "cursus", SupportsGet = true)]
+	public string CursusId { get; set; } = string.Empty;
+
+
+	public SpikeEditorModel(ApplicationDbContext context)
     {
         _context = context;
     }
@@ -45,6 +51,10 @@ public class SpikeEditorModel : PageModel
         else
         {
             Opgave = opgave;
+            if (opgave.Type == ProgrammingLanguage.Javascript)
+            {
+				EnableInBrowserCodeRunner = true;
+			}
         }
         return Page();
     }

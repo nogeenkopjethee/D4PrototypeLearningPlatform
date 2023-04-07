@@ -1,4 +1,5 @@
-﻿using D4PrototypeLearningPlatform.Model;
+﻿#define DEBUG // Remove this in real production!!! THIS IS NOT GREAT but nice for the prototype
+using D4PrototypeLearningPlatform.Model;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
