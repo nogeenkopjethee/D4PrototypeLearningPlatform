@@ -45,6 +45,10 @@ public class SpikeEditorModel : PageModel
         else
         {
             Opgave = opgave;
+            if (opgave.Type == ProgrammingLanguage.Javascript)
+            {
+				EnableInBrowserCodeRunner = true;
+			}
         }
         return Page();
     }

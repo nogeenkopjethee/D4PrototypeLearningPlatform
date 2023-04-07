@@ -38,7 +38,28 @@
 		</div>
 	</div>
 </div>
+<div class="modal fade" id="staticBackdropGood" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="staticBackdropLabel">Info</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
 
+
+			<div class="modal-body">
+				Goed gedaan!
+			</div>
+
+
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				@*<button type="button" class="btn btn-primary">Understood</button>*@
+			</div>
+		</div>
+	</div>
+</div>
 
 <div id="editor"></div>
 <button type="button" class="btn btn-primary" onclick="RunCode()">Check code</button>
@@ -87,11 +108,11 @@
 			document.getElementById("hidden-danger-alert").style.display = "none";
 			if (Successful)
 			{
-				document.getElementById("hidden-success-alert").style.display = "block";
+				__runSucces();
 			}
 			else
 			{
-				document.getElementById("hidden-danger-alert").style.display = "block";
+				RunTest();
 			}
 			console.log("Test Code Done!");
 			`;
@@ -108,7 +129,7 @@
 
 	function RunTest() {
 		//window.editor.getModel().setValue('Hello World!');
-		document.getElementById('staticBackdrop').focus();
+		//document.getElementById('staticBackdrop').focus();
 		var myModalEl = document.querySelector('#staticBackdrop');
 		var modal = bootstrap.Modal.getOrCreateInstance(myModalEl);
 		modal.show();
@@ -116,7 +137,10 @@
 
 
 	function __runSucces() {
-
+		//document.getElementById('staticBackdrop').focus();
+		var myModalEl = document.querySelector('#staticBackdropGood');
+		var modal = bootstrap.Modal.getOrCreateInstance(myModalEl);
+		modal.show();
 	}
 		
 

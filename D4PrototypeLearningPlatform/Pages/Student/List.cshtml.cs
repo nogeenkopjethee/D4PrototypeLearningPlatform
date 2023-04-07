@@ -1,11 +1,13 @@
 using D4PrototypeLearningPlatform.Model;
 using D4PrototypeLearningPlatform.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace D4PrototypeLearningPlatform.Pages.Student;
 
+[Authorize]
 public class ListModel : PageModel
 {
     private readonly LearnService learnService;
