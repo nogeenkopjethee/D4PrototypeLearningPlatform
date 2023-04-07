@@ -53,7 +53,15 @@
 
 
 			<div class="modal-footer">
-				<a asp-page="/Student/List" asp-route-id="@Model.CursusId" class="btn btn-primary">Back to list!</a>
+				@if (Model.CursusId != "")
+				{
+					<a asp-page="/Student/List" asp-route-id="@Model.CursusId" class="btn btn-primary">Back to list!</a>
+				}
+				else
+				{
+					<a asp-page="/Index" class="btn btn-primary">Back to home!</a>
+				}
+
 				@*<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back To List!</button>*@
 				@*<button type="button" class="btn btn-primary">Understood</button>*@
 			</div>
