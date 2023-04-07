@@ -3,6 +3,7 @@ using System;
 using D4PrototypeLearningPlatform.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace D4PrototypeLearningPlatform.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230406210031_AddEnrolement")]
+    partial class AddEnrolement
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,6 +98,9 @@ namespace D4PrototypeLearningPlatform.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("text");
+
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
@@ -104,24 +110,9 @@ namespace D4PrototypeLearningPlatform.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ApplicationUserId");
+
                     b.ToTable("Cursus");
-                });
-
-            modelBuilder.Entity("D4PrototypeLearningPlatform.Model.EnroledCurses", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("CursusId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("EnroledCurses");
                 });
 
             modelBuilder.Entity("D4PrototypeLearningPlatform.Model.Module", b =>
@@ -338,6 +329,13 @@ namespace D4PrototypeLearningPlatform.Migrations
                     b.ToTable("Opgave");
                 });
 
+            modelBuilder.Entity("D4PrototypeLearningPlatform.Model.Cursus", b =>
+                {
+                    b.HasOne("D4PrototypeLearningPlatform.Model.ApplicationUser", null)
+                        .WithMany("EnroledCurses")
+                        .HasForeignKey("ApplicationUserId");
+                });
+
             modelBuilder.Entity("D4PrototypeLearningPlatform.Model.Module", b =>
                 {
                     b.HasOne("D4PrototypeLearningPlatform.Model.Cursus", null)
@@ -401,6 +399,11 @@ namespace D4PrototypeLearningPlatform.Migrations
                     b.HasOne("D4PrototypeLearningPlatform.Model.Module", null)
                         .WithMany("Opgaves")
                         .HasForeignKey("ModuleId");
+                });
+
+            modelBuilder.Entity("D4PrototypeLearningPlatform.Model.ApplicationUser", b =>
+                {
+                    b.Navigation("EnroledCurses");
                 });
 
             modelBuilder.Entity("D4PrototypeLearningPlatform.Model.Cursus", b =>

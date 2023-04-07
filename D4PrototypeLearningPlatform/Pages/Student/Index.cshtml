@@ -1,0 +1,47 @@
+﻿@page
+@using D4PrototypeLearningPlatform.Model;
+@model D4PrototypeLearningPlatform.Pages.Student.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    Hi, please kies een cursus!
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Cursus[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cursus[0].Description)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Tuple<bool, Cursus> item in Model.UserCursusData)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Item2.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Item2.Description)
+                </td>
+                <td>
+                    @if (!item.Item1)
+                    {
+                        <a asp-page="./Enroll" asp-route-id="@item.Item2.Id">Enroll</a>
+                    }
+@*                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
