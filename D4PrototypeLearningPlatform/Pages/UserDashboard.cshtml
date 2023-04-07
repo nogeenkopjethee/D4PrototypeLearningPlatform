@@ -76,7 +76,7 @@
 						{
 							foreach (var item in Model.Cursus)
 							{
-								<a href="#" class="list-group-item list-group-item-action">
+								<a asp-page="/Student/List" asp-route-id="@item.Id" class="list-group-item list-group-item-action">
 									<div class="d-flex w-100 justify-content-between">
 										<h5>@item.Name</h5>
 									</div>

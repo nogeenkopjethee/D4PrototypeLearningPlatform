@@ -39,7 +39,9 @@ public class LearnService
         // I fergot how to do this the fast way, so replace this later (it won't scale well) or just cache the results!
         foreach (var item in resultEnroledCurses)
         {
-            var r = await context.Cursus.Where(x => x.Id == item.CursusId).FirstOrDefaultAsync();
+            Cursus? r = await context.Cursus
+                .Include(c => c.Modules)
+                .ThenInclude(module => module.Opgaves).Where(x => x.Id == item.CursusId).FirstOrDefaultAsync();
 
             if (r != null)
             {
@@ -95,7 +97,10 @@ public class LearnService
             return new(false,default!); 
         }
 
-        cursus = await context.Cursus.Include(x => x.Modules).FirstOrDefaultAsync(m => m.Id == id);
+        cursus = await context.Cursus
+            .Include(x => x.Modules)
+            .ThenInclude(module => module.Opgaves)
+            .FirstOrDefaultAsync(m => m.Id == id);
 
         if (cursus == null) 
         { 
